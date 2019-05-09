@@ -54,7 +54,13 @@ export const actions = {
   },
   addExpense(context, newExpense) {
     context.commit('addExpense', newExpense);
-  }    
+  },
+  
+  saveAllData(){
+    
+    
+
+  }
 };
 
 export default new Vuex.Store({
