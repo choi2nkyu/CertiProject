@@ -36,7 +36,7 @@
   export default {
     data() {
       return {
-        // Note `isActive` is left out and will not appear in the rendered table
+
         fields: ['motivo', 'categoria', 'monto', 'cuenta'],
         items: [
           { isActive: true, monto: 1000, motivo: 'Viaje', categoria: 'Cachorras', cuenta: 'Ahorros' },
