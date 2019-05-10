@@ -5,18 +5,11 @@ import store from '@/store.js'
 import { mutations } from '@/store.js' 
 import {state} from '@/store.js'
 
-
 const { increment } = mutations;
 const { addIncome} = mutations;
 const { addExpenseCategory} = mutations;
-
 const { saveAllData } = mutations;
-
 const { eraseAllData } = mutations;
-
-
-
-
 
 describe('mutations', () => {
   it('Mutations are Testable', () => {
@@ -57,9 +50,4 @@ describe('mutations', () => {
     eraseAllData();
     expect(window.localStorage.length).to.equal(0);
   }),
-  
-
-  
-  
-
 })

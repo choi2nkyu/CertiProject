@@ -35,7 +35,25 @@ export const mutations = {
 
     increment() {
       state.count = state.count+1;
-    }
+    },
+
+    saveAllData(){
+
+      window.localStorage.clear();
+    
+      window.localStorage.setItem('storage',JSON.stringify(state));
+
+      console.log(window.localStorage.length);
+ 
+
+  },
+  eraseAllData(){
+      
+      window.localStorage.clear();
+
+  }
+
+   
   };
 
 export const actions = {
@@ -55,12 +73,14 @@ export const actions = {
   addExpense(context, newExpense) {
     context.commit('addExpense', newExpense);
   },
-  
   saveAllData(){
-    
-    
-
+    mutations.saveAllData();
+  },
+  eraseAllData(){
+    mutations.eraseAllData();
   }
+  
+ 
 };
 
 export default new Vuex.Store({
