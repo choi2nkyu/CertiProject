@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     ACCOUNTS: [], 
-    EXPENSE_CATEGORIES: [],
-    INCOME_CATEGORIES:[],
+    EXPENSE_CATEGORIES: [{name:'Add...'},{name:'Expenses'},{name:'Transference'},{name:'Other'}],
+    INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Transference'},{name:'Other'}],
     INCOMES : [],
     EXPENSES: []
   },
@@ -31,6 +31,28 @@ export default new Vuex.Store({
     addExpense(context, newExpense){
       context.EXPENSES.push(newExpense);
     },
+    deleteIncomeCategory(context,categoryName){
+      context.INCOME_CATEGORIES.forEach(
+        function(element){
+          let indexofElement = context.INCOME_CATEGORIES.indexOf(element);
+          if(element.name === categoryName){
+            context.INCOME_CATEGORIES.splice(indexofElement,1)
+          }
+        }
+      )
+
+    },
+    deleteExpenseCategory(context,categoryName){
+      context.EXPENSE_CATEGORIES.forEach(
+        function(element){
+          let indexofElement = context.EXPENSE_CATEGORIES.indexOf(element);
+          if(element.name === categoryName){
+            context.EXPENSE_CATEGORIES.splice(indexofElement,1)
+          }
+        }
+      )
+
+    }
   },
   actions: {
     addAccount(context, newAccount) {
@@ -39,7 +61,7 @@ export default new Vuex.Store({
     addIncomeCategory(context, newCategory) {
         context.commit('addIncomeCategory', newCategory);
     },
-    addExpenseCategory(context, newCategory) {
+    addExpenseCategory(context, newCategory) { 
       context.commit('addExpenseCategory', newCategory);
     },
     addIncome(context, newIncome) {
@@ -47,6 +69,12 @@ export default new Vuex.Store({
     },
     addExpense(context, newExpense) {
       context.commit('addExpense', newExpense);
+    },
+    deleteIncomeCategory(context,categoryName){
+      context.commit('deleteIncomeCategory',categoryName);
+    },  
+    deleteExpenseCategory(context,categoryName){
+      context.commit('deleteExpenseCategory',categoryName);
     }    
 
   }
