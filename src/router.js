@@ -4,14 +4,13 @@ import Home from "./views/Home.vue";
 import Income from "./views/Income.vue";
 import Expense from "./views/Expense.vue";
 
-
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "reportes",
       component: Home
     },
     {
