@@ -7,9 +7,9 @@
        <b-table striped hover :items="items" :fields="fields"></b-table>
 
        <div>
-        <b-button variant="outline-primary" style="margin-left: 10px">Add</b-button>
-        <b-button variant="outline-primary" style="margin-left: 10px">Edit</b-button>
-        <b-button variant="outline-danger" style="margin-left: 10px">Delete</b-button>
+        <button variant="outline-primary" style="margin-left: 10px">Add</button>
+        <button variant="outline-primary" style="margin-left: 10px">Edit</button>
+        <button variant="outline-danger" style="margin-left: 10px">Delete</button>
        </div>
      </div>
      <div class="col-lg-6">
@@ -17,9 +17,9 @@
        <b-table striped hover :items="items2" :fields="fields"></b-table>
 
       <div>
-        <b-button variant="outline-primary" style="margin-left: 10px">Add</b-button>
-        <b-button variant="outline-primary" style="margin-left: 10px">Edit</b-button>
-        <b-button variant="outline-danger" style="margin-left: 10px">Delete</b-button>
+        <button variant="outline-primary" style="margin-left: 10px">Add</button>
+        <button variant="outline-primary" style="margin-left: 10px">Edit</button>
+        <button variant="outline-danger" style="margin-left: 10px">Delete</button>
        </div>
      </div>
     </div>
