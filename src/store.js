@@ -8,7 +8,8 @@ Vue.use(Vuex)
     EXPENSE_CATEGORIES: [{name:'Add...'},{name:'Expenses'},{name:'Transference'},{name:'Other'}],
     INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Transference'},{name:'Other'}],
     INCOMES : [],
-    EXPENSES: []
+    EXPENSES: [],
+    count: 0
   };
 export const mutations = {
     addAccount(context, newAccount){
