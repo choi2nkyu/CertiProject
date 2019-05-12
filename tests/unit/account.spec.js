@@ -5,7 +5,7 @@ import { wrap } from "module";
 
 describe("Account.vue", () => {
   let wrapper;
-  let object = [{ name: "" }];
+  let object = [{ name: "Savings", description: "Ordinary Savings" }];
 
   beforeEach(function() {
     wrapper = shallowMount(Account);
