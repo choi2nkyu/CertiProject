@@ -3,24 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
+  export const state = {
     ACCOUNTS: [], 
     EXPENSE_CATEGORIES: [{name:'Add...'},{name:'Expenses'},{name:'Transference'},{name:'Other'}],
     INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Transference'},{name:'Other'}],
     INCOMES : [],
-    EXPENSES: []
-  },
-  mutations: {
-export const state =  {
-  ACCOUNTS: [], 
-  EXPENSE_CATEGORIES: [],
-  INCOME_CATEGORIES:[],
-  INCOMES : [],
-  EXPENSES: [],
-  count:0
+    EXPENSES: [],
+    count: 0
   };
-
 export const mutations = {
     addAccount(context, newAccount){
       context.ACCOUNTS.push(newAccount);
@@ -62,9 +52,28 @@ export const mutations = {
         }
       )
 
-    }
+    },
+    saveAllData(){
+
+      window.localStorage.clear();
+    
+      window.localStorage.setItem('storage',JSON.stringify(state));
+
+      console.log(window.localStorage.length);
+ 
+
   },
-  actions: {
+  eraseAllData(){
+      
+      window.localStorage.clear();
+
+  }, 
+  increment() {
+    state.count = state.count+1;
+  },
+  };  
+
+  export const actions = {
     addAccount(context, newAccount) {
       context.commit('addAccount', newAccount);
     },
@@ -85,58 +94,14 @@ export const mutations = {
     },  
     deleteExpenseCategory(context,categoryName){
       context.commit('deleteExpenseCategory',categoryName);
-    }    
-
-    increment() {
-      state.count = state.count+1;
-    },
-
+    }, 
     saveAllData(){
-
-      window.localStorage.clear();
-    
-      window.localStorage.setItem('storage',JSON.stringify(state));
-
-      console.log(window.localStorage.length);
- 
-
-  },
-  eraseAllData(){
-      
-      window.localStorage.clear();
-
-  }
-
-   
+      mutations.saveAllData();
+    },
+    eraseAllData(){
+      mutations.eraseAllData();
+    }  
   };
-
-export const actions = {
-
-  addAccount(context, newAccount) {
-    context.commit('addAccount', newAccount);
-  },
-  addIncomeCategory(context, newCategory) {
-      context.commit('addIncomeCategory', newCategory);
-  },
-  addExpenseCategory(context, newCategory) {
-    context.commit('addExpenseCategory', newCategory);
-  },
-  addIncome(context, newIncome) {
-    context.commit('addIncome', newIncome);
-  },
-  addExpense(context, newExpense) {
-    context.commit('addExpense', newExpense);
-  },
-  saveAllData(){
-    mutations.saveAllData();
-  },
-  eraseAllData(){
-    mutations.eraseAllData();
-  }
-  
- 
-};
-
 export default new Vuex.Store({
   state,
   mutations,
