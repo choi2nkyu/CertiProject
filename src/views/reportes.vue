@@ -5,7 +5,6 @@
       <div class="col-lg-6">
         <h2>Ingresos</h2>
         <b-table striped hover :items="items" :fields="fields"></b-table>
-
         <div>
           <b-button
             variant="outline-primary"
