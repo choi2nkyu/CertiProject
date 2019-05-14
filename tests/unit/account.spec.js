@@ -223,8 +223,8 @@ describe("Account.vue", () => {
     const firstColumn = fieldArray[0]
     const secondColumn = fieldArray[1]
     expect(fieldArray.length).to.equal(2)
-    expect(firstColumn).to.equal('name')
-    expect(secondColumn).to.equal('description')
+    expect(firstColumn.value).to.equal('name')
+    expect(secondColumn.value).to.equal('description')
   })
   it("At button click, at least 1 object exists in array", () => {
     const initialLength = wrapper.vm.accountArray.length;

@@ -179,43 +179,13 @@ export const mutations = {
       for(var existingDate of this.state.DATES){
 
           if(date==existingDate)
-            condition=false
+            condition=false;
       }
 
       if(condition)
           context.commit('saveDate',date);
     }
   };
-
-export const actions = {
-  addAccount(context, newAccount) {
-    context.commit('addAccount', newAccount)
-  },
-  addIncomeCategory(context, newCategory) {
-    context.commit('addIncomeCategory', newCategory)
-  },
-  addExpenseCategory(context, newCategory) {
-    context.commit('addExpenseCategory', newCategory)
-  },
-  addIncome(context, newIncome) {
-    context.commit('addIncome', newIncome)
-  },
-  addExpense(context, newExpense) {
-    context.commit('addExpense', newExpense)
-  },
-  deleteIncomeCategory(context, categoryName) {
-    context.commit('deleteIncomeCategory', categoryName)
-  },
-  deleteExpenseCategory(context, categoryName) {
-    context.commit('deleteExpenseCategory', categoryName)
-  },
-  saveAllData() {
-    mutations.saveAllData()
-  },
-  eraseAllData() {
-    mutations.eraseAllData()
-  },
-}
 export default new Vuex.Store({
   state,
   mutations,

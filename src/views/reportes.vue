@@ -143,10 +143,6 @@ export default {
     items: function(){
         var objects =[];
 
-       
-       
-        
-         
        if(this.currentIncomeCategory==''&&this.currentDate==''){
             
             for(var element of this.$store.state.INCOMES){
@@ -158,8 +154,8 @@ export default {
           }
       return objects;
       }
-    },
-
+    
+    
       else if(this.currentDate!=''){
 
             for(var element of this.$store.state.INCOMES){
