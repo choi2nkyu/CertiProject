@@ -1,6 +1,6 @@
 <template>
-  <div class="Edit">
-    <IncExpForm formType = "Edit"/>
+  <div class="EditExpense">
+    <IncExpForm formType = "Expense" edit = "False" />
   </div>
 </template>
 <script>
@@ -8,7 +8,7 @@
 import IncExpForm from '@/components/IncExpForm.vue'
 
 export default {
-  name: 'Edit',    
+  name:'EditExpense',    
   components: {
     IncExpForm
   }

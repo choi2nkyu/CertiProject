@@ -18,6 +18,7 @@ export const state = {
   ],
   INCOMES: [],
   EXPENSES: [],
+  CURRENT_ITEM: "",
   CURRENT_ACCOUNT: {},
   count: 0
 };
