@@ -4,6 +4,7 @@
     <div class="alert alert-danger" role="alert" v-if="showGridAlert">Please only select one grid.</div>
     <div class="row">
       <div class="col-lg-6">
+
         <div class="row">
         <h3 style = "margin-left:7%; font-size:1em">Filtrar por fecha</h3>
         <select value=''  style = "margin-left:14%" v-model="currentDate">
@@ -140,6 +141,7 @@ export default {
     }
   },
   computed: {
+
     items: function(){
         var objects =[];
 
@@ -158,7 +160,6 @@ export default {
           }
       return objects;
       }
-    },
 
       else if(this.currentDate!=''){
 
