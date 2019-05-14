@@ -161,7 +161,8 @@ export default {
       if (this.selected.length == 1) {
         this.$router.push("reportes");
         this.showGridAlert = false;
-        this.$store.dispatch("setCurrentAccount", this.selected[0]);
+        this.$store.state.CURRENT_ACCOUNT = this.selected[0];
+         console.log(this.$store.state.CURRENT_ACCOUNT);
       } else {
         this.showGridAlert = true;
       }

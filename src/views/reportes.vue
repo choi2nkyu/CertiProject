@@ -7,7 +7,7 @@
         
         <div class="row">
         <h3 style = "margin-left:7%; font-size:1em">Filtrar por categoria</h3>
-        <select value=''  style = "margin-left:10%" v-model="currentCategory">
+        <select value=''  style = "margin-left:10%" v-model="currentIncomeCategory">
 
             <option
               v-for="category in Income_categories"
@@ -38,7 +38,7 @@
 
                 <div class="row">
         <h3 style = "margin-left:7%; font-size:1em">Filtrar por categoria</h3>
-        <select style = "margin-left:10%" v-model="currentCategory">
+        <select value ='' style = "margin-left:10%" v-model="currentExpenseCategory">
 
             <option
               v-for="category in Expense_categories"
@@ -77,8 +77,8 @@ export default {
   data() {
     return {
       fields: ["name", "category", "amount", "date"],
-      currentCategory:'',
-
+      currentIncomeCategory:'',
+      currentExpenseCategory:''
     
     };
   },
@@ -99,33 +99,59 @@ export default {
   computed: {
       items: function(){
         var objects =[];
+        
+         
+       if(this.currentIncomeCategory==''){
+            
+            for(var element of this.$store.state.INCOMES){
 
-       if(this.currentCategory==''){
-              return this.$store.state.INCOMES;
-            }
+                if(this.$store.state.CURRENT_ACCOUNT.name==element.account)
+                  objects.push(element);
+                  
+              
+          }
+      return objects;
+      }
+
       else{
         for (var element of this.$store.state.INCOMES){
 
-            if(this.currentCategory==element.category)
+            if(this.currentIncomeCategory==element.category&&this.$store.state.CURRENT_ACCOUNT.name==element.account)
               objects.push(element)
-        }
-      }    
-         return objects;
+              }
+      return objects;
+          }    
       },
-      items2: function(){
-        var objects =[];
 
-       if(this.currentCategory==''){
-              return this.$store.state.EXPENSES;
-            }
+
+
+      items2: function(){
+
+
+         var objects =[];
+        
+         
+       if(this.currentExpenseCategory==''){
+            
+            for(var element of this.$store.state.EXPENSES){
+
+                if(this.$store.state.CURRENT_ACCOUNT.name==element.account)
+                  objects.push(element);
+                  
+              
+          }
+      return objects;
+      }
+
       else{
         for (var element of this.$store.state.EXPENSES){
 
-            if(this.currentCategory==element.category)
+            if(this.currentExpenseCategory==element.category&&this.$store.state.CURRENT_ACCOUNT.name==element.account)
               objects.push(element)
-        }
-      }    
-         return objects;
+              }
+      return objects;
+          }   
+        
 
     },
       Income_categories: function(){
