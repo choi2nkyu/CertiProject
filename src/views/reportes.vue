@@ -43,70 +43,12 @@
 
 <script>
 export default {
+
+  
   data() {
     return {
-      fields: ["motivo", "categoria", "monto", "cuenta"],
-      items: [
-        {
-          isActive: true,
-          monto: 1000,
-          motivo: "Viaje",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 1500,
-          motivo: "Colegiatura",
-          categoria: "Hijos",
-          cuenta: "Gastos"
-        },
-        {
-          isActive: false,
-          monto: 800,
-          motivo: "Porque si",
-          categoria: "Trabajo",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: true,
-          monto: 100,
-          motivo: "Ahorritos",
-          categoria: "General",
-          cuenta: "Ahorros"
-        }
-      ],
-
-      items2: [
-        {
-          isActive: true,
-          monto: 3000,
-          motivo: "Viaje PC",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 150,
-          motivo: "Mandarina",
-          categoria: "Diversion",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 900,
-          motivo: "Cachorreadas",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: true,
-          monto: 80,
-          motivo: "Pa comer",
-          categoria: "General",
-          cuenta: "Ahorros"
-        }
-      ]
+      fields: ["name", "category", "amount", "date"],
+    
     };
   },
   methods: {
@@ -115,7 +57,19 @@ export default {
     },
     navigateToExpense() {
       this.$router.push("expense");
-    }
+    },
+
+  },
+
+  computed: {
+      items: function(){
+        return this.$store.state.INCOMES;
+      },
+      items2: function(){
+        return this.$store.state.EXPENSES;
+      }
+
+
   }
 };
 </script>
