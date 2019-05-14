@@ -9,6 +9,7 @@ Vue.use(Vuex);
     INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Other'}],
     INCOMES : [],
     EXPENSES: [],
+    CURRENT_ITEM:"",
     CURRENT_ACCOUNT:{},
     count: 0
   };

@@ -51,7 +51,8 @@
       </form>
     </div>
     <div class="col-lg-5">
-      <button type="button" class="btn btn-primary" @click="saveReg">Create</button>            
+      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" >Create</button>         
+      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="edit">Edit</button>   
     </div>
   </div>
 </template>
@@ -61,19 +62,18 @@ export default {
   name: "IncExpForm",
   data() {
     return {      
-      currentName: "",
-      currentCategory: "",
-      currentAmount: "",
-      currentAccount:this.$store.state.CURRENT_ACCOUNT.name,
+      currentName: this.$store.state.CURRENT_ITEM.name,
+      currentCategory:this.$store.state.CURRENT_ITEM.category,
+      currentAmount: this.$store.state.CURRENT_ITEM.amount,
+      currentAccount:this.$store.state.CURRENT_ACCOUNT,
       newCategoryName: "",
       destinationAccount:"",
-          
+
     };
   },
   props: {
     formType: String,
-    
-   
+    edit:String      
   },
   computed: {
     accounts: function(){
@@ -99,11 +99,23 @@ export default {
       }
       else {
         return false;
-      }
     }
+    },      
   },
   methods: {    
     saveReg() {
+      if(this.edit==="True"){
+        let formObject = {
+        name: this.currentName,
+        category: this.currentCategory,
+        amount: this.currentAmount  
+      };
+      this.$store.dispatch("edit" + this.formType, formObject);
+             
+               
+      }
+      else {      
+      
       let formObject = {
         name: this.currentName,
         category: this.currentCategory,
@@ -116,7 +128,8 @@ export default {
         formObject.account = this.destinationAccount;
         this.$store.dispatch("addIncome", formObject);
       }
-     console.log(this.$store.state.INCOMES)
+     console.log(this.$store.state.INCOMES) 
+      }    
     },
     saveCategory() {
       this.$store.dispatch("add" + this.formType + "Category", {
