@@ -36,15 +36,22 @@
             @click="saveCategory"
           >Create Category</button>
           <br>
+          <label for="destinationAccount" v-if="transferenceBool">Account to Transfer Amount</label>
+          <select class="form-control" v-model="destinationAccount" v-if="transferenceBool" id="destinationAccount">
+            <option
+              v-for="account in accounts"
+              :key="account.name"
+              :value="account.name"
+            >{{account.name}}</option>
+          </select>
+          <br>
           <label for="Amount" id="lblAmount">{{formType}} Amount</label>
           <input type="text" class="form-control" v-model="currentAmount" id="Amount">
         </div>
       </form>
     </div>
     <div class="col-lg-5">
-      <button type="button" class="btn btn-primary" @click="saveReg">Create</button>
-      <button type="button" class="btn btn-primary" @click="showMoreStuff">Show</button>
-      <button type="button" class="btn btn-primary" @click="deleteForm">Delete Object</button>
+      <button type="button" class="btn btn-primary" @click="saveReg">Create</button>            
     </div>
   </div>
 </template>
@@ -53,17 +60,25 @@
 export default {
   name: "IncExpForm",
   data() {
-    return {
+    return {      
       currentName: "",
       currentCategory: "",
       currentAmount: "",
-      newCategoryName: ""
+      currentAccount:this.$store.state.CURRENT_ACCOUNT,
+      newCategoryName: "",
+      destinationAccount:"",
+          
     };
   },
   props: {
-    formType: String
+    formType: String,
+    
+   
   },
   computed: {
+    accounts: function(){
+      return this.$store.state.ACCOUNTS;
+    },
     categories: function() {
       if (this.formType === "Income") {
         return this.$store.state.INCOME_CATEGORIES;
@@ -77,23 +92,31 @@ export default {
       } else {
         return false;
       }
+    },
+    transferenceBool: function(){
+      if(this.currentCategory === "Transference" && this.formType === 'Expense'){
+        return true;
+      }
+      else {
+        return false;
+      }
     }
   },
-  methods: {
-    showMoreStuff() {
-      if (this.formType === "Income") {
-        console.log(this.$store.state.INCOMES);
-      } else {
-        console.log(this.$store.state.EXPENSES);
-      }
-    },
+  methods: {    
     saveReg() {
       let formObject = {
         name: this.currentName,
         category: this.currentCategory,
-        amount: this.currentAmount
+        amount: this.currentAmount,
+        account: this.currentAccount 
+
       };
       this.$store.dispatch("add" + this.formType, formObject);
+      if(this.transferenceBool){
+        formObject.account = this.destinationAccount;
+        this.$store.dispatch("addIncome", formObject);
+      }
+     console.log(this.$store.state.INCOMES)
     },
     saveCategory() {
       this.$store.dispatch("add" + this.formType + "Category", {
