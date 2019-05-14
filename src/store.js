@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
   export const state = {
     ACCOUNTS: [], 
@@ -19,6 +19,15 @@ export const mutations = {
     addAccount(context, newAccount){
       context.ACCOUNTS.push(newAccount);
     },   
+  
+  deleteAccount(context, accountId) {
+    context.ACCOUNTS.forEach(function(element) {
+      let indexofElement = context.ACCOUNTS.indexOf(element);
+      if (element.id === accountId) {
+        context.ACCOUNTS.splice(indexofElement, 1);
+      }
+    });
+  },
 
     addIncomeCategory(context, newCategory) {
         context.INCOME_CATEGORIES.push(newCategory);
@@ -27,11 +36,11 @@ export const mutations = {
     addExpenseCategory(context, newCategory) {
       context.EXPENSE_CATEGORIES.push(newCategory);
     },
-
-    addIncome(context, newIncome){
-      context.INCOMES.push(newIncome);
-    },
-
+  
+  addIncomeCategory(context, newCategory) {
+    context.INCOME_CATEGORIES.push(newCategory);
+  },
+  
     addExpense(context, newExpense){
       context.EXPENSES.push(newExpense);
     },
@@ -126,6 +135,10 @@ export const mutations = {
     addAccount(context, newAccount) {
       context.commit('addAccount', newAccount);
     },
+    
+  deleteAccount(context, accountName) {
+    context.commit("deleteAccount", accountName);
+  },
     addIncomeCategory(context, newCategory) {
         context.commit('addIncomeCategory', newCategory);
     },
@@ -166,6 +179,7 @@ export const mutations = {
       mutations.eraseAllData();
     }  
   };
+
 export default new Vuex.Store({
   state,
   mutations,
