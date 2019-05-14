@@ -10,6 +10,7 @@ Vue.use(Vuex)
     INCOMES : [],
     EXPENSES: [],
     CURRENT_ACCOUNT:"",
+    CURRENT_ITEM:"",
     count: 0
   };
 export const mutations = {

@@ -4,6 +4,8 @@ import Home from "./views/Home.vue";
 import Income from "./views/Income.vue";
 import Expense from "./views/Expense.vue";
 import Reportes from "./views/reportes.vue";
+import EditExpense from "./views/EditExpense.vue";
+import EditIncome from "./views/EditIncome.vue";
 
 Vue.use(Router);
 
@@ -28,6 +30,16 @@ export default new Router({
       path: "/expense",
       name: "expense",
       component: Expense
+    },
+    {
+      path: "/editincome",
+      name: "editincome",
+      component: EditIncome
+    },
+    {
+      path: "/editexpense",
+      name: "editexpense",
+      component: EditExpense
     }
   ]
 });
