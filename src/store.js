@@ -9,8 +9,8 @@ Vue.use(Vuex);
     INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Other'}],
     INCOMES : [],
     EXPENSES: [],
-    CURRENT_ACCOUNT:"",
     CURRENT_ITEM:"",
+    CURRENT_ACCOUNT:{},
     count: 0
   };
 export const mutations = {
@@ -45,6 +45,10 @@ export const mutations = {
     addExpense(context, newExpense){
       context.EXPENSES.push(newExpense);
     },
+    addIncome(context, newIncome){
+      context.INCOMES.push(newIncome);
+    },
+    
     editIncome(context,incomeName,editedIncome){
       context.INCOMES.forEach(
         function(element){

@@ -2,7 +2,22 @@
   <div>
     <h1>Reportes</h1>
     <div class="row">
+      
       <div class="col-lg-6">
+        
+        <div class="row">
+        <h3 style = "margin-left:7%; font-size:1em">Filtrar por categoria</h3>
+        <select value=''  style = "margin-left:10%" v-model="currentIncomeCategory">
+
+            <option
+              v-for="category in Income_categories"
+              :key="category.name"
+              :value="category.name"
+            >{{category.name}}</option>
+
+        </select> 
+      </div>
+      
         <h2>Ingresos</h2>
         <b-table striped hover :items="items" :fields="fields"></b-table>
         <div>
@@ -20,6 +35,20 @@
         </div>
       </div>
       <div class="col-lg-6">
+
+                <div class="row">
+        <h3 style = "margin-left:7%; font-size:1em">Filtrar por categoria</h3>
+        <select value ='' style = "margin-left:10%" v-model="currentExpenseCategory">
+
+            <option
+              v-for="category in Expense_categories"
+              :key="category.name"
+              :value="category.name"
+            >{{category.name}}</option>
+
+        </select> 
+      </div>
+
         <h2>Egresos</h2>
         <b-table striped hover :items="items2" :fields="fields"></b-table>
 
@@ -42,71 +71,15 @@
 </template>
 
 <script>
+import { truncate } from 'fs';
 export default {
+
   data() {
     return {
-      fields: ["motivo", "categoria", "monto", "cuenta"],
-      items: [
-        {
-          isActive: true,
-          monto: 1000,
-          motivo: "Viaje",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 1500,
-          motivo: "Colegiatura",
-          categoria: "Hijos",
-          cuenta: "Gastos"
-        },
-        {
-          isActive: false,
-          monto: 800,
-          motivo: "Porque si",
-          categoria: "Trabajo",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: true,
-          monto: 100,
-          motivo: "Ahorritos",
-          categoria: "General",
-          cuenta: "Ahorros"
-        }
-      ],
-
-      items2: [
-        {
-          isActive: true,
-          monto: 3000,
-          motivo: "Viaje PC",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 150,
-          motivo: "Mandarina",
-          categoria: "Diversion",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: false,
-          monto: 900,
-          motivo: "Cachorreadas",
-          categoria: "Cachorras",
-          cuenta: "Ahorros"
-        },
-        {
-          isActive: true,
-          monto: 80,
-          motivo: "Pa comer",
-          categoria: "General",
-          cuenta: "Ahorros"
-        }
-      ]
+      fields: ["name", "category", "amount", "date"],
+      currentIncomeCategory:'',
+      currentExpenseCategory:''
+    
     };
   },
   methods: {
@@ -115,7 +88,82 @@ export default {
     },
     navigateToExpense() {
       this.$router.push("expense");
+    },
+    filterByCategories(){
+      var auxItems;
+    
     }
+
+  },
+
+  computed: {
+      items: function(){
+        var objects =[];
+        
+         
+       if(this.currentIncomeCategory==''){
+            
+            for(var element of this.$store.state.INCOMES){
+
+                if(this.$store.state.CURRENT_ACCOUNT.name==element.account)
+                  objects.push(element);
+                  
+              
+          }
+      return objects;
+      }
+
+      else{
+        for (var element of this.$store.state.INCOMES){
+
+            if(this.currentIncomeCategory==element.category&&this.$store.state.CURRENT_ACCOUNT.name==element.account)
+              objects.push(element)
+              }
+      return objects;
+          }    
+      },
+
+
+
+      items2: function(){
+
+
+         var objects =[];
+        
+         
+       if(this.currentExpenseCategory==''){
+            
+            for(var element of this.$store.state.EXPENSES){
+
+                if(this.$store.state.CURRENT_ACCOUNT.name==element.account)
+                  objects.push(element);
+                  
+              
+          }
+      return objects;
+      }
+
+      else{
+        for (var element of this.$store.state.EXPENSES){
+
+            if(this.currentExpenseCategory==element.category&&this.$store.state.CURRENT_ACCOUNT.name==element.account)
+              objects.push(element)
+              }
+      return objects;
+          }   
+        
+
+    },
+      Income_categories: function(){
+        return this.$store.state.INCOME_CATEGORIES;
+      },
+      Expense_categories: function(){
+        return this.$store.state.EXPENSE_CATEGORIES;
+      } 
+
+
+
   }
 };
 </script>
+
