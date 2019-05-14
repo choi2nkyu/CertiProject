@@ -64,7 +64,7 @@ export default {
       currentName: "",
       currentCategory: "",
       currentAmount: "",
-      currentAccount:this.$store.state.CURRENT_ACCOUNT,
+      currentAccount:this.$store.state.CURRENT_ACCOUNT.name,
       newCategoryName: "",
       destinationAccount:"",
           
