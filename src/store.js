@@ -13,32 +13,82 @@ export const state = {
   EXPENSES: [],
   count: 0,
 }
+
 export const mutations = {
   addAccount(context, newAccount) {
     context.ACCOUNTS.push(newAccount)
   },
 
   addIncomeCategory(context, newCategory) {
-    context.INCOME_CATEGORIES.push(newCategory)
+    context.INCOME_CATEGORIES.push(newCategory);
   },
-
-  addExpenseCategory(context, newCategory) {
-    context.EXPENSE_CATEGORIES.push(newCategory)
-  },
-
-  addIncome(context, newIncome) {
-    context.INCOMES.push(newIncome)
-  },
-
-  addExpense(context, newExpense) {
-    context.EXPENSES.push(newExpense)
-  },
-  deleteIncomeCategory(context, categoryName) {
-    context.INCOME_CATEGORIES.forEach(
-        function(element) {
-          const indexofElement = context.INCOME_CATEGORIES.indexOf(element)
-          if (element.name === categoryName) {
-            context.INCOME_CATEGORIES.splice(indexofElement, 1)
+  
+    addExpense(context, newExpense){
+      context.EXPENSES.push(newExpense);
+    },
+    addIncome(context, newIncome){
+      context.INCOMES.push(newIncome);
+    },
+    
+    editIncome(context,editedIncome){
+      console.log(editedIncome);
+      context.INCOMES.forEach(
+        function(element){
+          let indexofElement = context.INCOMES.indexOf(element);
+          if(element.name === editedIncome.oldName){
+            context.INCOMES[indexofElement].name=editedIncome.name;
+            context.INCOMES[indexofElement].category=editedIncome.category;
+            context.INCOMES[indexofElement].amount=editedIncome.amount;
+          }
+        })
+    },
+    editExpense(context,editedExpense){
+      context.EXPENSES.forEach(
+        function(element){
+          let indexofElement = context.EXPENSES.indexOf(element);
+          if(element.name === editedExpense.oldName){
+            context.EXPENSES[indexofElement].name=editedExpense.name;
+            context.EXPENSES[indexofElement].category=editedExpense.category;
+            context.EXPENSES[indexofElement].amount=editedExpense.amount;
+          }
+        })
+    },
+    editAccount(context,accountName,editedAccount){
+      context.ACCOUNTS.forEach(
+        function(element){
+          let indexofElement = context.ACCOUNTS.indexOf(element);
+          if(element.name === accountName){
+            context.ACCOUNTS[indexofElement].name=editedAccount.name;
+            context.ACCOUNTS[indexofElement].description=editedAccount.description;            
+          }
+        })
+    },    
+    deleteIncome(context,incomeName){
+      context.INCOMES.forEach(
+        function(element){
+          let indexofElement = context.INCOME_CATEGORIES.indexOf(element);
+          if(element.name === incomeName){
+            context.INCOMES.splice(indexofElement,1)
+          }
+        }
+      )
+    },
+    deleteExpense(context,expenseName){
+      context.EXPENSES.forEach(
+        function(element){
+          let indexofElement = context.EXPENSES.indexOf(element);
+          if(element.name === expenseName){
+            context.EXPENSES.splice(indexofElement,1)
+          }
+        }
+      )
+    },   
+    deleteIncomeCategory(context,categoryName){
+      context.INCOME_CATEGORIES.forEach(
+        function(element){
+          let indexofElement = context.INCOME_CATEGORIES.indexOf(element);
+          if(element.name === categoryName){
+            context.INCOME_CATEGORIES.splice(indexofElement,1)
           }
         }
     )
@@ -64,9 +114,78 @@ export const mutations = {
     window.localStorage.clear()
   },
   increment() {
-    state.count = state.count + 1
+    state.count = state.count+1;
   },
-}
+
+  saveDate(context,date) {
+    context.DATES.push(date);
+  }
+
+  };  
+  export const actions = {
+    setCurrentAccount(context,currentAccount){
+      context.commit('setCurrentAccount',currentAccount)
+    },
+    addAccount(context, newAccount) {
+      context.commit('addAccount', newAccount);
+    },
+    
+  deleteAccount(context, accountName) {
+    context.commit("deleteAccount", accountName);
+  },
+    addIncomeCategory(context, newCategory) {
+        context.commit('addIncomeCategory', newCategory);
+    },
+    addExpenseCategory(context, newCategory) { 
+      context.commit('addExpenseCategory', newCategory);
+    },
+    addIncome(context, newIncome) {
+      context.commit('addIncome', newIncome);
+    },
+    addExpense(context, newExpense) {
+      context.commit('addExpense', newExpense);
+    },
+    editIncome(context,editedIncome){
+      
+      context.commit('editIncome',editedIncome)
+    },
+    editExpense(context,editedExpense){
+      context.commit('editExpense',editedExpense)
+    },
+    editAccount(context,accountName,editedAccount){
+      context.commit('editAccount',accountName,editedAccount)
+    },
+    deleteIncome(context,incomeName){
+      context.commit('deleteIncome',incomeName)
+    },    
+    deleteExpense(context,expenseName){
+      context.commit('deleteExpense',expenseName)
+    },
+    deleteIncomeCategory(context,categoryName){
+      context.commit('deleteIncomeCategory',categoryName);
+    },  
+    deleteExpenseCategory(context,categoryName){
+      context.commit('deleteExpenseCategory',categoryName);
+    }, 
+    saveAllData(){
+      mutations.saveAllData();
+    },
+    eraseAllData(){
+      mutations.eraseAllData();
+    } ,
+    saveDate(context,date){
+
+      var condition=true;
+      for(var existingDate of this.state.DATES){
+
+          if(date==existingDate)
+            condition=false
+      }
+
+      if(condition)
+          context.commit('saveDate',date);
+    }
+  };
 
 export const actions = {
   addAccount(context, newAccount) {
