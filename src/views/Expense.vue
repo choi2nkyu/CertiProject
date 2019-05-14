@@ -9,9 +9,9 @@
 import IncExpForm from '@/components/IncExpForm.vue'
 
 export default {
-  name: 'Expense',    
+  name: 'Expense',
   components: {
-    IncExpForm
-  }
+    IncExpForm,
+  },
 }
 </script>

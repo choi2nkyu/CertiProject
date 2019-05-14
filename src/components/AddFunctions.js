@@ -1,23 +1,23 @@
 /*
 addIncome(){
-    this.$store.dispatch('addIncome', 
-    {name:"hey" + this.currentName, 
+    this.$store.dispatch('addIncome',
+    {name:"hey" + this.currentName,
     category: this.currentCategory,
     amount: this.currentAmount});
   };
 
   addExpense(){
-    this.$store.dispatch('addExpense', 
-    {name: this.currentName, 
+    this.$store.dispatch('addExpense',
+    {name: this.currentName,
     category: this.currentCategory,
     amount: this.currentAmount});
   };
 
   addAccount(){
-    this.$store.dispatch('addExpense', 
-    {name: this.currentName, 
+    this.$store.dispatch('addExpense',
+    {name: this.currentName,
     description: this.currentDescription});
   };
 */
 
-//Jalense los metodos a sus componentes para que entren en el Store
+// Jalense los metodos a sus componentes para que entren en el Store

@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import { constants } from "fs";
+import { constants } from 'fs'
 export default {
-  name: "Account",
+  name: 'Account',
   props: {
-    msg: String
+    msg: String,
   },
-  /*mounted() {
+  /* mounted() {
     this.accountArray = this.$store.state.ACCOUNTS;
   },*/
   data() {
@@ -69,106 +69,106 @@ export default {
       fields: [
         {
           id: 1,
-          label: "Account Name",
-          value: "name"
+          label: 'Account Name',
+          value: 'name',
         },
         {
           id: 2,
-          label: "Description",
-          value: "description"
-        }
+          label: 'Description',
+          value: 'description',
+        },
       ],
       accountArray: [],
       selected: [],
       showDetailButton: false,
-      currentName: "",
-      currentDescription: "",
+      currentName: '',
+      currentDescription: '',
       currentId: 0,
       showInputAlert: false,
       showGridAlert: false,
-      changeButton: false
-    };
+      changeButton: false,
+    }
   },
   computed: {
     refreshAccount() {
-      return this.$store.state.ACCOUNTS;
-    }
+      return this.$store.state.ACCOUNTS
+    },
   },
   methods: {
     add(object) {
-      this.accountArray.push(object);
-      this.currentName = object.name;
-      this.currentDescription = object.description;
+      this.accountArray.push(object)
+      this.currentName = object.name
+      this.currentDescription = object.description
     },
     addClicked() {
       if (
         this.$refs.accountInput[0].value &&
         this.$refs.accountInput[1].value
       ) {
-        this.showInputAlert = false;
-        var object = {
+        this.showInputAlert = false
+        const object = {
           id: this.currentId++,
           name: this.$refs.accountInput[0].value,
-          description: this.$refs.accountInput[1].value
-        };
-        this.add(object);
-        this.addAccountToStore();
+          description: this.$refs.accountInput[1].value,
+        }
+        this.add(object)
+        this.addAccountToStore()
       } else {
-        this.showInputAlert = true;
+        this.showInputAlert = true
       }
     },
     addAccountToStore() {
-      this.$store.dispatch("addAccount", {
+      this.$store.dispatch('addAccount', {
         id: this.currentId,
         name: this.currentName,
-        description: this.currentDescription
-      });
+        description: this.currentDescription,
+      })
     },
     rowSelected(items) {
-      this.selected = items;
+      this.selected = items
       if (items.length == 1) {
-        this.showDetailButton = true;
+        this.showDetailButton = true
       } else {
-        this.showDetailButton = false;
+        this.showDetailButton = false
       }
     },
     editClicked() {
       if (this.selected.length == 1) {
-        this.showGridAlert = false;
-        this.changeButton = true;
+        this.showGridAlert = false
+        this.changeButton = true
       } else {
-        this.showGridAlert = true;
-        this.changeButton = false;
+        this.showGridAlert = true
+        this.changeButton = false
       }
     },
     deleteClicked() {
       if (this.selected.length == 1) {
-        this.showGridAlert = false;
-        this.$store.dispatch("deleteAccount", this.selected[0].id);
+        this.showGridAlert = false
+        this.$store.dispatch('deleteAccount', this.selected[0].id)
       } else {
-        this.showGridAlert = true;
+        this.showGridAlert = true
       }
     },
     confirmClicked() {
-      this.$store.state.ACCOUNTS.forEach(element => {
+      this.$store.state.ACCOUNTS.forEach((element) => {
         if (element.id == this.selected[0].id) {
-          element.name = this.$refs.accountInput[0].value;
-          element.description = this.$refs.accountInput[1].value;
+          element.name = this.$refs.accountInput[0].value
+          element.description = this.$refs.accountInput[1].value
         }
-      });
+      })
     },
     navigate() {
       if (this.selected.length == 1) {
-        this.$router.push("reportes");
-        this.showGridAlert = false;
-        this.$store.state.CURRENT_ACCOUNT = this.selected[0];
-         console.log(this.$store.state.CURRENT_ACCOUNT);
+        this.$router.push('reportes')
+        this.showGridAlert = false
+        this.$store.state.CURRENT_ACCOUNT = this.selected[0]
+        console.log(this.$store.state.CURRENT_ACCOUNT)
       } else {
-        this.showGridAlert = true;
+        this.showGridAlert = true
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

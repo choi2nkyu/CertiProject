@@ -6,14 +6,14 @@
 
 <script>
 // @ is an alias to /src
-import Account from "@/components/Account.vue";
+import Account from '@/components/Account.vue'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
-    Account
-  }
-};
+    Account,
+  },
+}
 </script>
 
 <style scoped>

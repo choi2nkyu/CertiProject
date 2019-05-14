@@ -7,24 +7,19 @@
 
 <script>
 export default {
-    name : 'SaveButton',
-    
-    methods: {
+  name: 'SaveButton',
 
-        saveAllData(){
+  methods: {
 
-            window.localStorage.clear();
-            console.log(window.localStorage.length);
-            this.$store.dispatch('saveAllData');
-            console.log(window.localStorage.length);
-            
+    saveAllData() {
+      window.localStorage.clear()
+      console.log(window.localStorage.length)
+      this.$store.dispatch('saveAllData')
+      console.log(window.localStorage.length)
+    },
 
+  },
 
-        }
-
-    }
-    
-    
 
 }
 </script>

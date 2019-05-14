@@ -12,7 +12,7 @@ Vue.use(BootstrapVue)
 new Vue({
   router,
   store,
-  render: function (h) {
+  render: function(h) {
     return h(App)
-  }
+  },
 }).$mount('#app')

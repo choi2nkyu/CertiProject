@@ -51,126 +51,122 @@
       </form>
     </div>
     <div class="col-lg-5">
-      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" >Create</button>         
-      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="edit">Edit</button>   
+      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="!edit" >Create</button>
+      <button type="button" class="btn btn-primary" @click="saveReg" v-if ="edit">Edit</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "IncExpForm",
+  name: 'IncExpForm',
   data() {
-    return {      
+    return {
       currentName: this.$store.state.CURRENT_ITEM.name,
-      oldName:this.$store.state.CURRENT_ITEM.name,
-      currentCategory:this.$store.state.CURRENT_ITEM.category,
+      oldName: this.$store.state.CURRENT_ITEM.name,
+      currentCategory: this.$store.state.CURRENT_ITEM.category,
       currentAmount: this.$store.state.CURRENT_ITEM.amount,
-      currentAccount:this.$store.state.CURRENT_ACCOUNT.name,
-      newCategoryName: "",
-      destinationAccount:"",
+      currentAccount: this.$store.state.CURRENT_ACCOUNT.name,
+      newCategoryName: '',
+      destinationAccount: '',
 
-    };
+    }
   },
   props: {
     formType: String,
-    edit:String      
+    edit: String,
   },
   computed: {
-    accounts: function(){
-      return this.$store.state.ACCOUNTS;
+    accounts: function() {
+      return this.$store.state.ACCOUNTS
     },
     categories: function() {
-      if (this.formType === "Income") {
-        return this.$store.state.INCOME_CATEGORIES;
+      if (this.formType === 'Income') {
+        return this.$store.state.INCOME_CATEGORIES
       } else {
-        return this.$store.state.EXPENSE_CATEGORIES;
+        return this.$store.state.EXPENSE_CATEGORIES
       }
     },
     categoryBool: function() {
-      if (this.currentCategory === "Add...") {
-        return true;
+      if (this.currentCategory === 'Add...') {
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    transferenceBool: function(){
-      if(this.currentCategory === "Transference" && this.formType === 'Expense'){
-        return true;
+    transferenceBool: function() {
+      if (this.currentCategory === 'Transference' && this.formType === 'Expense') {
+        return true
+      } else {
+        return false
       }
-      else {
-        return false;
-    }
-    },      
+    },
   },
-  methods: {    
+  methods: {
     saveReg() {
-      if(this.edit==="True"){
-        console.log("estoy");
-        let formObject = {
-        oldName: this.oldName,  
-        name: this.currentName,
-        category: this.currentCategory,
-        amount: this.currentAmount  
-      };
-      console.log( this.oldName);
-      this.$store.dispatch("edit" + this.formType,formObject);           
+      if (this.edit === 'True') {
+        console.log('estoy')
+        const formObject = {
+          oldName: this.oldName,
+          name: this.currentName,
+          category: this.currentCategory,
+          amount: this.currentAmount,
+        }
+        console.log(this.oldName)
+        this.$store.dispatch('edit' + this.formType, formObject)
+      } else {
+        let today = new Date()
+        const dd = String(today.getDate()).padStart(2, '0')
+        const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
+        const yyyy = today.getFullYear()
+
+        today = dd + '/' + mm + '/' + yyyy
+
+
+        const formObject = {
+          name: this.currentName,
+          category: this.currentCategory,
+          amount: this.currentAmount,
+          account: this.currentAccount,
+          date: today,
+
+        }
+        console.log(formObject)
+        this.$store.dispatch('add' + this.formType, formObject)
+        this.$store.dispatch('saveDate', today)
+        console.log(this.$store.state.EXPENSES)
+
+        if (this.transferenceBool) {
+          const formObject = {
+            name: this.currentName,
+            category: this.currentCategory,
+            amount: this.currentAmount,
+            account: this.destinationAccount,
+          }
+
+          this.$store.dispatch('addIncome', formObject)
+        }
       }
-      else {      
-      
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
-
-      today = dd + '/' + mm + '/' + yyyy;
-
-
-      let formObject = {
-        name: this.currentName,
-        category: this.currentCategory,
-        amount: this.currentAmount,
-        account: this.currentAccount,
-        date: today 
-
-      };
-      console.log(formObject);
-      this.$store.dispatch("add" + this.formType, formObject);
-      this.$store.dispatch("saveDate",today);
-      console.log(this.$store.state.EXPENSES);
-      
-      if(this.transferenceBool){
-         let formObject = {
-        name: this.currentName,
-        category: this.currentCategory,
-        amount: this.currentAmount,
-        account: this.destinationAccount
-      };
-        
-        this.$store.dispatch("addIncome", formObject);
-      }
-     
-      }    
     },
     saveCategory() {
-      this.$store.dispatch("add" + this.formType + "Category", {
-        name: this.newCategoryName
-      });
+      this.$store.dispatch('add' + this.formType + 'Category', {
+        name: this.newCategoryName,
+      })
     },
     deleteCategory() {
       this.$store.dispatch(
-        "delete" + this.formType + "Category",
-        this.currentCategory
-      );
+          'delete' + this.formType + 'Category',
+          this.currentCategory
+      )
     },
     deleteForm() {
-      this.$store.dispatch("delete" + this.formType, this.currentName);
+      this.$store.dispatch('delete' + this.formType, this.currentName)
     },
     navigate() {
-      this.$router.push("reportes");
-    }
-  }
-};
+      this.$router.push('reportes')
+    },
+  },
+}
 </script>
 <style scoped>
 .leftColumn {

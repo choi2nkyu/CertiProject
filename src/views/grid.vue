@@ -6,12 +6,12 @@
         </b-col>
     </b-row>
 </div>
-    
+
 </template>
 
 <script>
 export default {
-    name: 'Grid'
+  name: 'Grid',
 }
 </script>
 

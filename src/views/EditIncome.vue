@@ -7,9 +7,9 @@
 // @ is an alias to /src
 import IncExpForm from '@/components/IncExpForm.vue'
 export default {
-  name:'EditIncome',    
+  name: 'EditIncome',
   components: {
-    IncExpForm
-  }
+    IncExpForm,
+  },
 }
 </script>
