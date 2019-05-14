@@ -9,7 +9,8 @@ Vue.use(Vuex);
     INCOME_CATEGORIES:[{name:'Add...'},{name:'Salary'},{name:'Other'}],
     INCOMES : [],
     EXPENSES: [],
-    CURRENT_ITEM:"",
+    DATES:[],
+    CURRENT_ITEM:{name:''},
     CURRENT_ACCOUNT:{},
     count: 0
   };
@@ -49,22 +50,23 @@ export const mutations = {
       context.INCOMES.push(newIncome);
     },
     
-    editIncome(context,incomeName,editedIncome){
+    editIncome(context,editedIncome){
+      console.log(editedIncome);
       context.INCOMES.forEach(
         function(element){
           let indexofElement = context.INCOMES.indexOf(element);
-          if(element.name === incomeName){
+          if(element.name === editedIncome.oldName){
             context.INCOMES[indexofElement].name=editedIncome.name;
             context.INCOMES[indexofElement].category=editedIncome.category;
             context.INCOMES[indexofElement].amount=editedIncome.amount;
           }
         })
     },
-    editExpense(context,expenseName,editedExpense){
+    editExpense(context,editedExpense){
       context.EXPENSES.forEach(
         function(element){
           let indexofElement = context.EXPENSES.indexOf(element);
-          if(element.name === expenseName){
+          if(element.name === editedExpense.oldName){
             context.EXPENSES[indexofElement].name=editedExpense.name;
             context.EXPENSES[indexofElement].category=editedExpense.category;
             context.EXPENSES[indexofElement].amount=editedExpense.amount;
@@ -132,6 +134,11 @@ export const mutations = {
   increment() {
     state.count = state.count+1;
   },
+
+  saveDate(context,date) {
+    context.DATES.push(date);
+  }
+
   };  
   export const actions = {
     setCurrentAccount(context,currentAccount){
@@ -156,11 +163,12 @@ export const mutations = {
     addExpense(context, newExpense) {
       context.commit('addExpense', newExpense);
     },
-    editIncome(context,incomeName,editedIncome){
-      context.commit('editIncome',incomeName,editedIncome)
+    editIncome(context,editedIncome){
+      
+      context.commit('editIncome',editedIncome)
     },
-    editExpense(context,expenseName,editedExpense){
-      context.commit('editExpense',expenseName,editedExpense)
+    editExpense(context,editedExpense){
+      context.commit('editExpense',editedExpense)
     },
     editAccount(context,accountName,editedAccount){
       context.commit('editAccount',accountName,editedAccount)
@@ -182,7 +190,19 @@ export const mutations = {
     },
     eraseAllData(){
       mutations.eraseAllData();
-    }  
+    } ,
+    saveDate(context,date){
+
+      var condition=true;
+      for(var existingDate of this.state.DATES){
+
+          if(date==existingDate)
+            condition=false
+      }
+
+      if(condition)
+          context.commit('saveDate',date);
+    }
   };
 
 export default new Vuex.Store({

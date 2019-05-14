@@ -1,6 +1,6 @@
 <template>
   <div class="EditExpense">
-    <IncExpForm formType = "Expense" edit = "False" />
+    <IncExpForm formType = "Expense" edit = "True" />
   </div>
 </template>
 <script>

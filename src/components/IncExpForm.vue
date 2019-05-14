@@ -63,9 +63,10 @@ export default {
   data() {
     return {      
       currentName: this.$store.state.CURRENT_ITEM.name,
+      oldName:this.$store.state.CURRENT_ITEM.name,
       currentCategory:this.$store.state.CURRENT_ITEM.category,
       currentAmount: this.$store.state.CURRENT_ITEM.amount,
-      currentAccount:this.$store.state.CURRENT_ACCOUNT,
+      currentAccount:this.$store.state.CURRENT_ACCOUNT.name,
       newCategoryName: "",
       destinationAccount:"",
 
@@ -105,30 +106,50 @@ export default {
   methods: {    
     saveReg() {
       if(this.edit==="True"){
+        console.log("estoy");
         let formObject = {
+        oldName: this.oldName,  
         name: this.currentName,
         category: this.currentCategory,
         amount: this.currentAmount  
       };
-      this.$store.dispatch("edit" + this.formType, formObject);
-             
-               
+      console.log( this.oldName);
+      this.$store.dispatch("edit" + this.formType,formObject);           
       }
       else {      
       
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+
+      today = dd + '/' + mm + '/' + yyyy;
+
+
       let formObject = {
         name: this.currentName,
         category: this.currentCategory,
         amount: this.currentAmount,
-        account: this.currentAccount 
+        account: this.currentAccount,
+        date: today 
 
       };
+      console.log(formObject);
       this.$store.dispatch("add" + this.formType, formObject);
+      this.$store.dispatch("saveDate",today);
+      console.log(this.$store.state.EXPENSES);
+      
       if(this.transferenceBool){
-        formObject.account = this.destinationAccount;
+         let formObject = {
+        name: this.currentName,
+        category: this.currentCategory,
+        amount: this.currentAmount,
+        account: this.destinationAccount
+      };
+        
         this.$store.dispatch("addIncome", formObject);
       }
-     console.log(this.$store.state.INCOMES) 
+     
       }    
     },
     saveCategory() {
