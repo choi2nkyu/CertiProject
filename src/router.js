@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Income from "./views/Income.vue";
 import Expense from "./views/Expense.vue";
-
+import Reportes from "./views/reportes.vue";
 
 Vue.use(Router);
 
@@ -15,15 +15,19 @@ export default new Router({
       component: Home
     },
     {
+      path: "/reportes",
+      name: "reportes",
+      component: Reportes
+    },
+    {
       path: "/income",
       name: "income",
-      component: Income     
-      
+      component: Income
     },
-      {
-        path: "/expense",
-        name: "expense",
-        component: Expense
-      }    
+    {
+      path: "/expense",
+      name: "expense",
+      component: Expense
+    }
   ]
-})
+});

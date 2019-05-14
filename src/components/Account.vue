@@ -14,7 +14,20 @@
       <div class="col-5 right-column">
         <button type="button" class="btn btn-primary">Edit</button>
         <button type="button" class="btn btn-primary">Delete</button>
-        <b-table striped hover :items="testItems" :fields="fields.value"></b-table>
+        <b-table
+          selectable
+          hover
+          striped
+          :items="testItems"
+          :fields="fields.value"
+          @row-selected="rowSelected"
+        ></b-table>
+        <button
+          type="button"
+          class="btn btn-primary"
+          v-if="showDetailButton"
+          @click="navigate"
+        >Detail</button>
       </div>
     </div>
   </div>
@@ -45,9 +58,15 @@ export default {
         {
           name: "Trip",
           description: "This will be used for my trip to France"
+        },
+        {
+          name: "Savings",
+          description: "This is current savings"
         }
       ],
-      accountArray: []
+      accountArray: [],
+      selected: [],
+      showDetailButton: false
     };
   },
   methods: {
@@ -59,10 +78,23 @@ export default {
       }
     },
     addAccountToStore() {
-      this.$store.dispatch("addExpense", {
+      this.$store.dispatch("addAccount", {
         name: this.currentName,
         description: this.currentDescription
       });
+    },
+    rowSelected(items) {
+      this.selected = items;
+      console.log(items);
+      if (items.length > 0) {
+        this.showDetailButton = true;
+      } else {
+        this.showDetailButton = false;
+      }
+      console.log(this.showDetailButton);
+    },
+    navigate() {
+      this.$router.push("reportes");
     }
   }
 };

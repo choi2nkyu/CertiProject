@@ -7,7 +7,6 @@ import {state} from '@/store.js'
 
 const { increment } = mutations;
 const { addIncome} = mutations;
-const { addExpenseCategory} = mutations;
 const { saveAllData } = mutations;
 const { eraseAllData } = mutations;
 
@@ -24,12 +23,6 @@ describe('mutations', () => {
     assert.isNotEmpty(state.INCOMES, 'Array de Incomes vacio');
   }),
 
-  it('add CATEGORY ', () => {
-    const category = {name: 'category' }; 
-    assert.isEmpty(state.EXPENSE_CATEGORIES, 'Array de Categorias vacio');
-    addExpenseCategory(state,category);
-    assert.isNotEmpty(state.EXPENSE_CATEGORIES, 'Array de Categorias vacio');
-  }),
 
   it('Local Storage Data Saving', () =>{
 
@@ -44,10 +37,9 @@ describe('mutations', () => {
 
     const income = {name: 'income', amount: '10' }; 
     addIncome(state,income);
-    expect(window.localStorage.length).to.equal(0);
     saveAllData();
     expect(window.localStorage.length).to.equal(1);
     eraseAllData();
     expect(window.localStorage.length).to.equal(0);
-  }),
+  })
 })
